@@ -1,0 +1,176 @@
+</main>
+
+        <footer class="bg-white border-t">
+            <div class="container mx-auto py-6 px-4 sm:px-6 lg:px-8 text-center text-gray-500">
+                <p>&copy; <?php echo date("Y"); ?> VTU NOTES. All Rights Reserved.</p>
+                <p class="text-sm mt-1">A student-focused initiative for educational resources.</p>
+
+                <!-- Social Media Icons -->
+                <div class="flex justify-center space-x-6 mt-4">
+                <a href="https://facebook.com/YourPage" target="_blank" class="text-gray-500 hover:text-blue-600 transition">
+                    <i class="fab fa-facebook-f fa-lg"></i>
+                    <span class="sr-only">Facebook</span>
+                </a>
+                <a href="https://twitter.com/YourProfile" target="_blank" class="text-gray-500 hover:text-blue-400 transition">
+                    <i class="fab fa-twitter fa-lg"></i>
+                    <span class="sr-only">Twitter</span>
+                </a>
+                <a href="https://whatsapp.com/channel/0029Vav2A1CEwEk0N2paBj3X" target="_blank" class="text-gray-500 hover:text-green-500 transition">
+                    <i class="fab fa-whatsapp fa-lg"></i>
+                    <span class="sr-only">WhatsApp</span>
+                </a>
+                <a href="https://instagram.com/vtuengineering.notes" target="_blank" class="text-gray-500 hover:text-pink-500 transition">
+                    <i class="fab fa-instagram fa-lg"></i>
+                    <span class="sr-only">Instagram</span>
+                </a>
+                <a href="https://linkedin.com/in/YourProfile" target="_blank" class="text-gray-500 hover:text-blue-700 transition">
+                    <i class="fab fa-linkedin-in fa-lg"></i>
+                    <span class="sr-only">LinkedIn</span>
+                </a>
+                <a href="https://github.com/YourProfile" target="_blank" class="text-gray-500 hover:text-gray-900 transition">
+                    <i class="fab fa-github fa-lg"></i>
+                    <span class="sr-only">GitHub</span>
+                </a>
+                </div>
+                <!-- /Social Media Icons -->
+            </div>
+        </footer>
+    </div> <script>
+        // --- GLOBAL SCRIPT ---
+        // We still use DOMContentLoaded as a best practice to organize the code.
+        document.addEventListener('DOMContentLoaded', function() {
+            // --- Mobile Menu Sidebar Logic ---
+            const menuButton = document.getElementById('mobile-menu-button');
+            const closeButton = document.getElementById('mobile-menu-close');
+            const menuOverlay = document.getElementById('mobile-menu-overlay');
+            const menu = document.getElementById('mobile-menu');
+
+            function toggleMenu() {
+                menu.classList.toggle('translate-x-full');
+                menuOverlay.classList.toggle('hidden');
+            }
+
+            if (menuButton) menuButton.addEventListener('click', toggleMenu);
+            if (closeButton) closeButton.addEventListener('click', toggleMenu);
+            if (menuOverlay) menuOverlay.addEventListener('click', toggleMenu);
+            
+            menu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', toggleMenu);
+            });
+
+            // --- Header Search Toggle Logic ---
+            const searchIconButton = document.getElementById('search-icon-button');
+            const searchOverlay = document.getElementById('search-overlay');
+            const searchCloseButton = document.getElementById('search-close-button');
+            const headerSearchInput = document.getElementById('header-search-input');
+
+            function toggleSearch() {
+                searchOverlay.classList.toggle('hidden');
+                if (!searchOverlay.classList.contains('hidden')) {
+                    headerSearchInput.focus();
+                }
+            }
+
+            if(searchIconButton) searchIconButton.addEventListener('click', toggleSearch);
+            if(searchCloseButton) searchCloseButton.addEventListener('click', toggleSearch);
+
+            // --- REUSABLE AJAX SEARCH FUNCTION ---
+            const performAjaxSearch = async (query, resultsContainer) => {
+                if (query.length < 2) {
+                    resultsContainer.innerHTML = '';
+                    resultsContainer.classList.add('hidden');
+                    return;
+                }
+
+                const formData = new FormData();
+                formData.append('action', 'search');
+                formData.append('query', query);
+                
+                const searchUrl = '<?php echo BASE_URL; ?>subjects.php';
+
+                try {
+                    const response = await fetch(searchUrl, { method: 'POST', body: formData });
+                    const subjects = await response.json();
+                    
+                    let html = '';
+                    if (subjects.length > 0) {
+                        html += '<ul class="divide-y divide-slate-100">';
+                        subjects.forEach(subject => {
+                            html += `
+                                <li class="hover:bg-slate-50">
+                                    <a href="<?php echo BASE_URL; ?>notes.php?subject_id=${subject.id}" class="p-4 flex items-center justify-between">
+                                        <div>
+                                            <p class="font-semibold text-slate-800">${subject.subject_name}</p>
+                                            <p class="text-sm text-slate-500">${subject.subject_code} - ${subject.short_name}</p>
+                                        </div>
+                                        <i class="fa fa-chevron-right text-slate-400"></i>
+                                    </a>
+                                </li>`;
+                        });
+                        html += '</ul>';
+                    } else {
+                        html = '<p class="p-4 text-center text-slate-500">No subjects found.</p>';
+                    }
+                    resultsContainer.innerHTML = html;
+                    resultsContainer.classList.remove('hidden');
+                } catch (error) {
+                    console.error('Search error:', error);
+                    resultsContainer.innerHTML = '<p class="p-4 text-center text-red-500">Error fetching results.</p>';
+                    resultsContainer.classList.remove('hidden');
+                }
+            };
+
+            // Attach search to HEADER search bar
+            const headerSearchResults = document.getElementById('header-search-results');
+            if (headerSearchInput) {
+                headerSearchInput.addEventListener('keyup', () => {
+                    performAjaxSearch(headerSearchInput.value.trim(), headerSearchResults);
+                });
+            }
+
+            // Attach search to HOMEPAGE hero search bar (if it exists on the page)
+            const homepageSearchInput = document.getElementById('search-input');
+            const homepageSearchResults = document.getElementById('search-results');
+            if (homepageSearchInput) {
+                homepageSearchInput.addEventListener('keyup', () => {
+                    performAjaxSearch(homepageSearchInput.value.trim(), homepageSearchResults);
+                });
+            }
+
+            // Disable other interactions globally
+            document.addEventListener('contextmenu', event => event.preventDefault());
+        });
+    </script>
+</body>
+</html> 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<ul class="space-y-2 text-slate-600  mb-6 flex-grow">
+                        <?php foreach($meta['features'] as $feature): ?>
+                        <li class="flex items-center">
+                            <i class="fas fa-check-circle text-black mr-2"></i>
+                            <span><?php echo $feature; ?></span>
+                        </li>
+                        <?php endforeach; ?>
+                    </ul>

@@ -1,0 +1,20 @@
+RewriteEngine On
+RewriteBase /vtu_notes/
+
+# --- BLOG RULES ---
+RewriteRule ^blog/?$ blog.php [NC,L]
+RewriteRule ^blog/([a-zA-Z0-9-]+)/?$ post.php?slug=$1 [NC,L]
+
+# --- OTHER RULES ---
+RewriteRule ^sgpa-calculator/?$ sgpa_calculator.php [NC,L]
+RewriteRule ^upload/?$ upload.php [NC,L]
+RewriteRule ^contact/?$ contactus.php [NC,L]
+RewriteRule ^branch/([a-zA-Z0-9-]+)/?$ semesters.php?branch_slug=$1 [NC,L]
+RewriteRule ^branch/([a-zA-Z0-9-]+)/semester/([0-9]+)/?$ subjects.php?branch_slug=$1&sem_number=$2 [NC,L]
+RewriteRule ^notes/([a-zA-Z0-9-]+)/?$ notes.php?slug=$1 [NC,L]
+# ... and any other rules you have
+
+# Fallback for existing files and directories
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L]
