@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTU Course Notes</title>
+    <!-- Tailwind CSS from CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Font - Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            /* Using CSS custom properties for a smoother transition between modes */
+            transition: background-color 0.3s ease;
+        }
+    </style>
+</head>
+<body class="bg-gray-900 text-white dark:bg-white dark:text-gray-900">
+    <!-- Main content container, styled as a card -->
+    <div class="bg-gray-800 dark:bg-gray-100 text-white dark:text-gray-900 w-full max-w-2xl rounded-xl shadow-lg overflow-hidden my-8 mx-auto">
+        
+        <!-- Header Section -->
+        <div class="bg-gray-900 dark:bg-gray-200 p-6 text-center text-2xl font-extrabold tracking-wide rounded-t-xl relative">
+            <h1 class="text-white dark:text-gray-900">INTRODUCTION TO CIVIL ENGINEERING BESCK104A</h1>
+            <!-- Theme Toggle Button -->
+            <button id="theme-toggle" class="absolute top-4 right-4 p-2 rounded-full bg-gray-700 dark:bg-gray-300 transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-purple-500">
+                <!-- Moon Icon for dark mode -->
+                <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon text-white dark:text-gray-900">
+                    <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/>
+                </svg>
+                <!-- Sun Icon for light mode (hidden by default) -->
+                <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun hidden text-white dark:text-gray-900">
+                    <circle cx="12" cy="12" r="4"/>
+                    <path d="M12 2v2"/>
+                    <path d="M12 20v2"/>
+                    <path d="m4.93 4.93 1.41 1.41"/>
+                    <path d="m17.66 17.66 1.41 1.41"/>
+                    <path d="M2 12h2"/>
+                    <path d="M20 12h2"/>
+                    <path d="m6.34 17.66-1.41 1.41"/>
+                    <path d="m19.07 4.93-1.41 1.41"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- VTU Notes Table Section -->
+        <div class="p-6">
+            <h2 class="text-center text-gray-400 dark:text-gray-600 font-semibold mb-4">VTU NOTES</h2>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left table-auto border-collapse">
+                    <tbody>
+                        <tr class="border-b border-gray-700 dark:border-gray-300">
+                            <td class="py-2 pr-4 font-medium text-gray-300 dark:text-gray-700">Subject code</td>
+                            <td class="py-2 text-gray-100 dark:text-gray-900">BESCK104A/204</td>
+                        </tr>
+                        <tr>
+                            <td class="py-2 pr-4 font-medium text-gray-300 dark:text-gray-700">Semester</td>
+                            <td class="py-2 text-gray-100 dark:text-gray-900">1st / 2nd</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Module 1 Section -->
+        <div class="bg-gray-900 dark:bg-gray-200 p-6">
+            <div class="bg-gray-700 dark:bg-gray-300 text-center text-lg font-bold p-4 mb-6 rounded-lg">
+                <h2 class="text-white dark:text-gray-900">MODULE - 1</h2>
+            </div>
+            
+            <div class="space-y-4 text-gray-300 dark:text-gray-700">
+                <p>
+                    <strong class="text-white dark:text-gray-900">Civil Engineering Disciplines and Building Science</strong><br>
+                    Introduction to Civil Engineering: Surveying, Structural Engineering, Geotechnical Engineering, Hydraulics and water Resources, Transportation Engineering, Environmental Engineering, Construction planning and project management.
+                </p>
+                <p>
+                    <strong class="text-white dark:text-gray-900">Basic Materials of Construction:</strong> Bricks, Cement & mortars, Plain, Reinforced &Pre-stressed Concrete, Structural steel, Construction Chemicals.
+                </p>
+                <p>
+                    <strong class="text-white dark:text-gray-900">Structural elements of a building:</strong> foundation, plinth, lintel, chejja, Masonry wall, column, beam, slab and staircase
+                </p>
+            </div>
+            <div class="mt-6 flex justify-center">
+                <button class="bg-red-500 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-red-600 transition-colors duration-300 transform hover:scale-105">
+                    DOWNLOAD
+                </button>
+            </div>
+        </div>
+
+        <!-- Module 2 Section -->
+        <div class="bg-gray-900 dark:bg-gray-200 p-6">
+            <div class="bg-gray-700 dark:bg-gray-300 text-center text-lg font-bold p-4 mb-6 rounded-lg">
+                <h2 class="text-white dark:text-gray-900">MODULE - 2</h2>
+            </div>
+            
+            <div class="space-y-4 text-gray-300 dark:text-gray-700">
+                <p>
+                    <strong class="text-white dark:text-gray-900">Surveying and Geomatics:</strong><br>
+                    Introduction to surveying, Principles of surveying, Linear and angular measurements, leveling, contouring, and modern surveying instruments like Total Station and GPS.
+                </p>
+                <p>
+                    <strong class="text-white dark:text-gray-900">Water Resources Engineering:</strong> Principles of hydrology, Water cycle, Measurement of precipitation, Runoff, and introduction to dams and reservoirs.
+                </p>
+            </div>
+            <div class="mt-6 flex justify-center">
+                <button class="bg-red-500 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-red-600 transition-colors duration-300 transform hover:scale-105">
+                    DOWNLOAD
+                </button>
+            </div>
+        </div>
+        
+        <!-- Module 3 Section -->
+        <div class="bg-gray-900 dark:bg-gray-200 p-6">
+            <div class="bg-gray-700 dark:bg-gray-300 text-center text-lg font-bold p-4 mb-6 rounded-lg">
+                <h2 class="text-white dark:text-gray-900">MODULE - 3</h2>
+            </div>
+            
+            <div class="space-y-4 text-gray-300 dark:text-gray-700">
+                <p>
+                    <strong class="text-white dark:text-gray-900">Structural Engineering:</strong><br>
+                    Introduction to various types of structures, concepts of load and stress, and an overview of design principles for beams, columns, and trusses.
+                </p>
+                <p>
+                    <strong class="text-white dark:text-gray-900">Geotechnical Engineering:</strong> Introduction to soil mechanics, Types of soil, Soil properties, and basic concepts of foundation engineering.
+                </p>
+            </div>
+            <div class="mt-6 flex justify-center">
+                <button class="bg-red-500 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-red-600 transition-colors duration-300 transform hover:scale-105">
+                    DOWNLOAD
+                </button>
+            </div>
+        </div>
+
+        <!-- Module 4 Section -->
+        <div class="bg-gray-900 dark:bg-gray-200 p-6">
+            <div class="bg-gray-700 dark:bg-gray-300 text-center text-lg font-bold p-4 mb-6 rounded-lg">
+                <h2 class="text-white dark:text-gray-900">MODULE - 4</h2>
+            </div>
+            
+            <div class="space-y-4 text-gray-300 dark:text-gray-700">
+                <p>
+                    <strong class="text-white dark:text-gray-900">Transportation Engineering:</strong><br>
+                    Overview of different modes of transportation, Introduction to highway engineering, geometric design of roads, and basic concepts of traffic engineering.
+                </p>
+                <p>
+                    <strong class="text-white dark:text-gray-900">Environmental Engineering:</strong> Concepts of water supply engineering, wastewater treatment, and solid waste management.
+                </p>
+            </div>
+            <div class="mt-6 flex justify-center">
+                <button class="bg-red-500 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-red-600 transition-colors duration-300 transform hover:scale-105">
+                    DOWNLOAD
+                </button>
+            </div>
+        </div>
+
+        <!-- Module 5 Section -->
+        <div class="bg-gray-900 dark:bg-gray-200 p-6">
+            <div class="bg-gray-700 dark:bg-gray-300 text-center text-lg font-bold p-4 mb-6 rounded-lg">
+                <h2 class="text-white dark:text-gray-900">MODULE - 5</h2>
+            </div>
+            
+            <div class="space-y-4 text-gray-300 dark:text-gray-700">
+                <p>
+                    <strong class="text-white dark:text-gray-900">Construction Management:</strong><br>
+                    Introduction to construction planning, project management, project life cycle, and an overview of construction materials, equipment, and safety.
+                </p>
+            </div>
+            <div class="mt-6 flex justify-center">
+                <button class="bg-red-500 text-white font-bold py-3 px-8 rounded-lg shadow-md hover:bg-red-600 transition-colors duration-300 transform hover:scale-105">
+                    DOWNLOAD
+                </button>
+            </div>
+        </div>
+
+    </div>
+
+    <section id="gs" class="py-10 bg-gray-50">
+  <h2 class="text-3xl font-bold text-center mb-8">
+    Basic of Electronics <span class="text-blue-600"></span>
+  </h2>
+
+  <!-- Module 1 -->
+  <div class="max-w-5xl mx-auto mb-8 bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div class="p-6">
+      <h3 class="text-xl font-semibold mb-2">Module 1</h3>
+      <p class="text-gray-600 mb-4">lkbmkhgguiygyffg</p>
+      <iframe
+        src="https://drive.google.com/file/d/1hu2rp_eJ6vYmBAh6z-EwZhejj9_PY5e_/preview"
+        class="w-full h-[500px] rounded-lg mb-4"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+      <a
+        href="#"
+        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition duration-200"
+      >
+        Click Here
+      </a>
+    </div>
+  </div>
+
+  <!-- Module 2 -->
+  <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-lg overflow-hidden">
+    <div class="p-6">
+      <h3 class="text-xl font-semibold mb-2">Module 2</h3>
+      <p class="text-gray-600 mb-4">Another module content here</p>
+      <iframe
+        src="https://drive.google.com/file/d/1hu2rp_eJ6vYmBAh6z-EwZhejj9_PY5e_/preview"
+        class="w-full h-[500px] rounded-lg mb-4"
+        frameborder="0"
+        allowfullscreen
+      ></iframe>
+      <a
+        href="#"
+        class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-medium px-5 py-2 rounded-lg transition duration-200"
+      >
+        Click Here
+      </a>
+    </div>
+  </div>
+</section>
+
+    
+    <script>
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const moonIcon = document.getElementById('moon-icon');
+        const sunIcon = document.getElementById('sun-icon');
+        const isDarkMode = localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches);
+
+        // Set initial theme based on localStorage or system preference
+        if (isDarkMode) {
+            htmlElement.classList.add('dark');
+            moonIcon.classList.remove('hidden');
+            sunIcon.classList.add('hidden');
+        } else {
+            htmlElement.classList.remove('dark');
+            moonIcon.classList.add('hidden');
+            sunIcon.classList.remove('hidden');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            if (htmlElement.classList.contains('dark')) {
+                htmlElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+                moonIcon.classList.add('hidden');
+                sunIcon.classList.remove('hidden');
+            } else {
+                htmlElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+                moonIcon.classList.remove('hidden');
+                sunIcon.classList.add('hidden');
+            }
+        });
+    </script>
+</body>
+</html>

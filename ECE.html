@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VTU SYNC</title>
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Font Awesome CDN -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        // Set up Tailwind CSS to handle dark mode based on the 'dark' class
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        inter: ['Inter', 'sans-serif'],
+                    },
+                },
+            },
+        };
+
+        // On page load or whenever the theme preference changes,
+        // we check the theme from local storage or system preference.
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6; /* bg-gray-100 */
+        }
+        /* Dark mode styles */
+        .dark body {
+            background-color: #111827; /* dark:bg-gray-900 */
+            color: #d1d5db; /* dark:text-gray-300 */
+        }
+        .dark .bg-white {
+            background-color: #1f2937; /* dark:bg-gray-800 */
+        }
+        .dark .text-gray-600 {
+            color: #d1d5db;
+        }
+        .dark .text-gray-800 {
+            color: #f3f4f6;
+        }
+        .dark .hover\:bg-gray-100:hover {
+            background-color: #374151; /* dark:hover:bg-gray-700 */
+        }
+        .dark .hover\:bg-indigo-50:hover {
+            background-color: #111827;
+        }
+        .sidebar {
+            transition: transform 0.3s ease-in-out;
+            transform: translateX(-100%);
+        }
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        .slide-content {
+            transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+        }
+        /* New CSS for consistent card height */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            align-items: stretch; /* This makes all cards the same height */
+        }
+        .card {
+            min-height: 250px; /* Adjust this value as needed to control the base height */
+        }
+    </style>
+</head>
+<body class="min-h-screen relative">
+
+    <!-- Sidebar - Hidden on large screens -->
+    <div id="sidebar" class="sidebar fixed top-0 left-0 h-full w-64 bg-white dark:bg-gray-800 shadow-xl z-50 md:hidden">
+        <div class="p-4 flex items-center justify-between border-b dark:border-gray-700">
+            <div class="font-bold text-lg text-indigo-700 dark:text-indigo-400">VTUWISE</div>
+            <button id="close-sidebar" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chevron-left"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+        </div>
+        <nav class="flex flex-col p-4 space-y-2">
+            <a href="index.html" class="p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-700 font-medium text-gray-800 dark:text-gray-300">Home</a>
+            <a href="" class="p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-700 font-medium text-gray-800 dark:text-gray-300">Notes</a>
+            <a href="sgpa-calculator.html" class="p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-700 font-medium text-gray-800 dark:text-gray-300">Calculator</a>
+            <a href="#" class="p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-700 font-medium text-gray-800 dark:text-gray-300">Notes Inquiry</a>
+            <a href="#" class="p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-700 font-medium text-gray-800 dark:text-gray-300">Lab Manual</a>
+            <a href="#" class="p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-700 font-medium text-gray-800 dark:text-gray-300">Academics</a>
+            <a href="#" class="p-2 rounded-lg hover:bg-indigo-50 dark:hover:bg-gray-700 font-medium text-gray-800 dark:text-gray-300">Legal</a>
+        </nav>
+    </div>
+
+    <!-- Main content wrapper -->
+    <div class="relative z-10 flex flex-col items-center">
+        <!-- Header -->
+        <header class="w-full bg-white dark:bg-gray-800 shadow-sm sticky top-0 z-40">
+            <div class="container mx-auto px-4 py-3 flex items-center justify-between">
+                <!-- Left section: Menu icon and Logo -->
+                <div class="flex items-center space-x-4 lg:space-x-8">
+                    <button id="open-sidebar" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 md:hidden">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+                    </button>
+                    <a href="index.html">
+                    <div class="font-bold text-2xl text-indigo-700 dark:text-indigo-400">VTUWISE</div>
+                   </a>
+                </div>
+
+                <!-- Middle section: Navigation links - hidden on mobile -->
+                <nav class="hidden md:flex items-center space-x-6 lg:space-x-10">
+                    <a href="index.html" class="text-gray-600 dark:text-gray-300 hover:text-indigo-700 dark:hover:text-indigo-400 font-medium transition-colors">Home</a>
+                    <div class="relative group">
+                        <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-700 dark:hover:text-indigo-400 font-medium transition-colors flex items-center">Notes</a>
+                    </div>
+                    <a href="sgpa-calculator.html" class="text-gray-600 dark:text-gray-300 hover:text-indigo-700 dark:hover:text-indigo-400 font-medium transition-colors">Calculator</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-700 dark:hover:text-indigo-400 font-medium transition-colors">Notes Inquiry</a>
+                    <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-700 dark:hover:text-indigo-400 font-medium transition-colors">Lab Manual</a>
+                    <div class="relative group">
+                        <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-700 dark:hover:text-indigo-400 font-medium transition-colors flex items-center">Academics</a>
+                    </div>
+                    <div class="relative group">
+                        <a href="#" class="text-gray-600 dark:text-gray-300 hover:text-indigo-700 dark:hover:text-indigo-400 font-medium transition-colors flex items-center">Legal</a>
+                    </div>
+                </nav>
+
+                <!-- Right section: Icons and Button -->
+                <div class="flex items-center space-x-2 md:space-x-4">
+                    <!-- Icons for desktop, hidden on mobile -->
+                    <button class="hidden md:block p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-search"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </button>
+                    <button class="hidden md:block p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bell"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                    </button>
+
+                    <!-- Theme toggle button - always visible -->
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <!-- Sun icon (for light mode) -->
+                        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-sun block dark:hidden"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                        <!-- Moon icon (for dark mode) -->
+                        <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-moon hidden dark:block"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                    </button>
+
+                    <!-- "Join Now!" button - hidden on mobile -->
+                    <button onclick="window.open('https://whatsapp.com/channel/0029Vav2A1CEwEk0N2paBj3X', '_blank')"
+                          class="hidden md:block px-4 py-2 bg-indigo-600 text-white font-semibold rounded-full shadow-lg hover:bg-indigo-700 transition-colors">
+                             Join Now!
+                    </button>
+
+                </div>
+            </div>
+        </header>
+           <!-- New Section: First Year & Branches -->
+        <section class="container mx-auto px-4 mt-8 md:mt-16 max-w-7xl">
+            <h3 class="text-3xl font-bold text-gray-800 dark:text-gray-200 mb-6 md:mb-10">Choose Your Semester</h3>
+            <!-- Changed the grid class to the new card-grid for consistent height -->
+            <div class="card-grid">
+               <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- Card 1: 3rd sem -->
+        <div class="card relative bg-gradient-to-br from-indigo-800 to-purple-600 rounded-2xl shadow-lg p-6 overflow-hidden text-white hover:shadow-xl transition-shadow flex flex-col justify-between">
+            <div class="absolute inset-0 opacity-20">
+                <svg class="w-full h-full" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="10" y="10" width="10" height="10" stroke="white" stroke-width="0.5"/>
+                    <rect x="30" y="30" width="10" height="10" stroke="white" stroke-width="0.5"/>
+                    <rect x="50" y="50" width="10" height="10" stroke="white" stroke-width="0.5"/>
+                    <rect x="70" y="70" width="10" height="10" stroke="white" stroke-width="0.5"/>
+                    <rect x="90" y="90" width="10" height="10" stroke="white" stroke-width="0.5"/>
+                    <rect x="110" y="10" width="10" height="10" stroke="white" stroke-width="0.5"/>
+                    <rect x="130" y="30" width="10" height="10" stroke="white" stroke-width="0.5"/>
+                    <rect x="150" y="50" width="10" height="10" stroke="white" stroke-width="0.5"/>
+                    <rect x="170" y="70" width="10" height="10" stroke="white" stroke-width="0.5"/>
+                    <rect x="190" y="90" width="10" height="10" stroke="white" stroke-width="0.5"/>
+                </svg>
+            </div>
+            <a href="ECE/ECE-3rd-Sem-Notes.html" class="card-link">
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div>
+                        <span class="bg-white/20 text-white text-xs font-bold px-2 py-1 rounded-full mb-2 inline-block">3rd Sem</span>
+                        <h4 class="text-5xl md:text-6xl font-extrabold mt-4">Third Sem</h4>
+                        <p class="text-sm opacity-80 mt-2"></p>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm mt-4">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Card 2: 4th sem -->
+        <div class="card relative bg-gradient-to-br from-purple-800 to-indigo-600 rounded-2xl shadow-lg p-6 overflow-hidden text-white hover:shadow-xl transition-shadow flex flex-col justify-between">
+            <div class="absolute inset-0 opacity-20">
+                <svg class="w-full h-full" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Note: The fill="url(#paint_linear_cse)" reference needs to be defined in a <defs> block to work. I've removed it and used a simple color for the dots. -->
+                    <circle cx="20" cy="20" r="8" stroke="white" stroke-width="0.5"/>
+                    <circle cx="80" cy="50" r="8" stroke="white" stroke-width="0.5"/>
+                    <circle cx="150" cy="90" r="8" stroke="white" stroke-width="0.5"/>
+                    <circle cx="180" cy="30" r="8" stroke="white" stroke-width="0.5"/>
+                </svg>
+            </div>
+            <a href="" class="card-link">
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div>
+                       <span class="bg-white/20 text-white text-xs font-bold px-2 py-1 rounded-full mb-2 inline-block">4th Sem</span>
+                       <h4 class="text-5xl md:text-6xl font-extrabold mt-4">Fourth Sem</h4>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm mt-auto pt-4">
+                        
+                    </div>
+                </div>
+            </a>
+        </div>
+        <!-- Card 3: 5th sem -->
+        <div class="card relative bg-gradient-to-br from-indigo-800 to-fuchsia-600 rounded-2xl shadow-lg p-6 overflow-hidden text-white hover:shadow-xl transition-shadow flex flex-col justify-between">
+            <div class="absolute inset-0 opacity-20">
+                <svg class="w-full h-full" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Note: The fill="url(#paint_linear_ece)" reference needs to be defined in a <defs> block to work. I've removed it and used a simple color for the lines. -->
+                    <path d="M20 20L180 100" stroke="white" stroke-width="0.5"/>
+                    <path d="M20 100L180 20" stroke="white" stroke-width="0.5"/>
+                    <circle cx="100" cy="60" r="15" stroke="white" stroke-width="0.5"/>
+                </svg>
+            </div>
+            <a href="" class="card-link">
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div>
+                        <span class="bg-white/20 text-white text-xs font-bold px-2 py-1 rounded-full mb-2 inline-block">5th Sem</span>
+                        <h4 class="text-5xl md:text-6xl font-extrabold mt-4">Fifth Sem</h4>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm mt-auto pt-4">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <!-- Card 4: 6th sem -->
+        <div class="card relative bg-gradient-to-br from-blue-800 to-indigo-600 rounded-2xl shadow-lg p-6 overflow-hidden text-white hover:shadow-xl transition-shadow flex flex-col justify-between">
+            <div class="absolute inset-0 opacity-20">
+                <svg class="w-full h-full" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 60H190M100 10V110" stroke="white" stroke-width="0.5"/>
+                    <circle cx="10" cy="60" r="8" stroke="white" stroke-width="0.5"/>
+                    <circle cx="190" cy="60" r="8" stroke="white" stroke-width="0.5"/>
+                    <circle cx="100" cy="10" r="8" stroke="white" stroke-width="0.5"/>
+                    <circle cx="100" cy="110" r="8" stroke="white" stroke-width="0.5"/>
+                </svg>
+            </div>
+            <a href="" class="card-link">
+                <div class="relative z-10 flex flex-col h-full justify-between">
+                    <div>
+                        <span class="bg-white/20 text-white text-xs font-bold px-2 py-1 rounded-full mb-2 inline-block">6th Sem</span>
+                        <h4 class="text-5xl md:text-6xl font-extrabold mt-4">Sixth Sem</h4>
+                    </div>
+                    <div class="flex items-center space-x-2 text-sm mt-auto pt-4">
+                    </div>
+                </div>
+            </a>
+        </div>
+
+    </div>
+        </section>
+    </div>
+       
+
+       
+    </div>
+
+   <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-12 mt-8 rounded-lg">
+        <div class="container mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
+            <!-- Footer Column 1: Logo and description -->
+            <div class="flex flex-col space-y-4">
+                <div class="flex items-center space-x-2">
+                    <h3 class="text-xl font-bold">VTU<span class="text-purple-400">WISE</span></h3>
+                </div>
+                <p class="text-sm opacity-80">
+                    VTUWISE: Your ultimate study buddy! 📚 Ace your exams with curated resources, crafted by students, for students. 🚀
+                </p>
+                 <div class="flex space-x-4">
+                                            <!-- WhatsApp -->
+                        <a href="https://whatsapp.com/channel/0029Vav2A1CEwEk0N2paBj3X" target="_blank" aria-label="WhatsApp"
+                            class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-green-500 shadow hover:scale-110 transition-transform duration-200 dark:bg-gray-800">
+                            <i class="fab fa-whatsapp text-xl"></i>
+                        </a>
+
+                        <!-- Telegram -->
+                        <a href="https://t.me/yourusername" target="_blank" aria-label="Telegram"
+                            class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-sky-500 shadow hover:scale-110 transition-transform duration-200 dark:bg-gray-800">
+                            <i class="fab fa-telegram-plane text-xl"></i>
+                        </a>
+
+                        <!-- Instagram -->
+                        <a href="https://instagram.com/yourusername" target="_blank" aria-label="Instagram"
+                            class="flex items-center justify-center w-10 h-10 rounded-full bg-white text-pink-500 shadow hover:scale-110 transition-transform duration-200 dark:bg-gray-800">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                </div>
+            </div>
+
+            <!-- Footer Column 2: Legal Terms -->
+            <div>
+                <h4 class="font-bold text-lg mb-4">LEGAL TERMS</h4>
+                <ul class="space-y-2 text-sm opacity-80">
+                    <li><a href="#" class="hover:text-purple-400 transition-colors duration-300">About</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition-colors duration-300">Terms and conditions</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition-colors duration-300">Privacy Policy</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition-colors duration-300">Disclaimer</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition-colors duration-300">FAQs</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition-colors duration-300">Contact Us</a></li>
+                </ul>
+            </div>
+
+           
+
+            <!-- Footer Column 4: VTU Links -->
+            <div>
+                <h4 class="font-bold text-lg mb-4">VTU LINKS</h4>
+                <ul class="space-y-2 text-sm opacity-80">
+                    <li><a href="#" class="hover:text-purple-400 transition-colors duration-300">Academic Calendar</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition-colors duration-300">VTU Result</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition-colors duration-300">VTU Model Paper</a></li>
+                    <li><a href="#" class="hover:text-purple-400 transition-colors duration-300">VTU Examination</a></li>
+                </ul>
+            </div>
+
+        </div>
+        <div class="mt-8 pt-6 border-t border-gray-700 text-center text-xs opacity-60">
+            <p>Copyright © 2025 - Built and Designed by VTUWISE</p>
+        </div>
+    </footer>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const openSidebarBtn = document.getElementById('open-sidebar');
+            const closeSidebarBtn = document.getElementById('close-sidebar');
+            const themeToggleBtn = document.getElementById('theme-toggle');
+
+            const nextSlideBtn = document.getElementById('next-slide');
+            const prevSlideBtn = document.getElementById('prev-slide');
+            const sliderDotsContainer = document.getElementById('slider-dots');
+            
+            const slideTitle = document.getElementById('slide-title');
+            const slideDescription = document.getElementById('slide-description');
+            const readTime = document.getElementById('read-time');
+            const viewsMobile = document.getElementById('views-mobile');
+            const viewsDesktop = document.getElementById('views-desktop');
+
+            const slides = [
+                {
+                    title: "VTU Scheme of Evaluation",
+                    views: "14.9K",
+                    readTime: "2 Min Read",
+                    description: "VTU Scheme Viewer 2025 Schemes Dec-Jan June-July NEW 2024 Schemes Dec-Jan June-July 2023 Schemes Jan-Feb June-July 2022 Schemes Feb-Mar...",
+                },
+                {
+                    title: "New Course Announcements",
+                    views: "5.2K",
+                    readTime: "3 Min Read",
+                    description: "Stay up-to-date with the latest course additions and updates for the upcoming academic year. Explore new opportunities for learning and growth...",
+                },
+                {
+                    title: "Exam Preparation Tips",
+                    views: "25.1K",
+                    readTime: "5 Min Read",
+                    description: "Learn effective strategies and tips to ace your upcoming university exams. From time management to revision techniques, we've got you covered...",
+                },
+            ];
+
+            let currentSlideIndex = 0;
+
+            const updateSliderContent = () => {
+                const currentSlide = slides[currentSlideIndex];
+                slideTitle.textContent = currentSlide.title;
+                slideDescription.textContent = currentSlide.description;
+                readTime.textContent = currentSlide.readTime;
+                viewsMobile.textContent = `${currentSlide.views} views`;
+                viewsDesktop.textContent = `${currentSlide.views} views`;
+                
+                // Update dots
+                sliderDotsContainer.innerHTML = '';
+                slides.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = `w-2 h-2 rounded-full transition-all ${
+                        currentSlideIndex === index ? 'bg-white w-4' : 'bg-gray-300 opacity-50'
+                    }`;
+                    dot.addEventListener('click', () => {
+                        currentSlideIndex = index;
+                        updateSliderContent();
+                    });
+                    sliderDotsContainer.appendChild(dot);
+                });
+            };
+
+            const toggleSidebar = () => {
+                sidebar.classList.toggle('open');
+            };
+
+            const toggleTheme = () => {
+                const html = document.documentElement;
+                if (html.classList.contains('dark')) {
+                    html.classList.remove('dark');
+                    localStorage.theme = 'light';
+                } else {
+                    html.classList.add('dark');
+                    localStorage.theme = 'dark';
+                }
+            };
+
+            openSidebarBtn.addEventListener('click', toggleSidebar);
+            closeSidebarBtn.addEventListener('click', toggleSidebar);
+            themeToggleBtn.addEventListener('click', toggleTheme);
+            
+            nextSlideBtn.addEventListener('click', () => {
+                currentSlideIndex = (currentSlideIndex + 1) % slides.length;
+                updateSliderContent();
+            });
+
+            prevSlideBtn.addEventListener('click', () => {
+                currentSlideIndex = (currentSlideIndex - 1 + slides.length) % slides.length;
+                updateSliderContent();
+            });
+
+            // Close sidebar on window resize if it's a desktop view
+            window.addEventListener('resize', () => {
+                if (window.innerWidth >= 768) {
+                    sidebar.classList.remove('open');
+                }
+            });
+
+            // Initial content load
+            updateSliderContent();
+        });
+    </script>
+</body>
+</html>
