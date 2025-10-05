@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fun Search Example</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f5f7fa;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    #searchBox {
+      padding: 10px 15px;
+      width: 300px;
+      font-size: 16px;
+      border-radius: 25px;
+      border: 2px solid #4a90e2;
+      outline: none;
+      transition: 0.3s;
+    }
+
+    #searchBox:focus {
+      border-color: #007aff;
+      box-shadow: 0 0 5px rgba(0, 122, 255, 0.4);
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 20px;
+      width: 300px;
+    }
+
+    li {
+      background: #fff;
+      margin: 5px 0;
+      padding: 12px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      transition: transform 0.2s;
+    }
+
+    li:hover {
+      transform: scale(1.03);
+      background: #eaf4ff;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🔍 Search Fruits</h1>
+  <input type="text" id="searchBox" placeholder="Type to search...">
+
+  <ul id="itemList">
+    <li>Apple</li>
+    <li>Banana</li>
+    <li>Cherry</li>
+    <li>Date</li>
+    <li>Fig</li>
+    <li>Grapes</li>
+    <li>Mango</li>
+    <li>Orange</li>
+    <li>Pineapple</li>
+    <li>Strawberry</li>
+  </ul>
+
+  <script>
+    const searchBox = document.getElementById('searchBox');
+    const listItems = document.querySelectorAll('#itemList li');
+
+    searchBox.addEventListener('keyup', function() {
+      const searchTerm = this.value.toLowerCase();
+      listItems.forEach(item => {
+        const text = item.textContent.toLowerCase();
+        item.style.display = text.includes(searchTerm) ? 'block' : 'none';
+      });
+    });
+  </script>
+
+</body>
+</html>
