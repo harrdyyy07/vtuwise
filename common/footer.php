@@ -15,10 +15,10 @@
           <a href="https://whatsapp.com/channel/0029Vav2A1CEwEk0N2paBj3X" target="_blank" class="text-black dark:text-white hover:text-green-500 transition">
             <i class="fab fa-whatsapp fa-lg"></i><span class="sr-only">WhatsApp</span>
           </a>
-          <a href="#" target="_blank" class="text-black dark:text-white hover:text-blue-500 transition">
+          <a href="https://t.me/VTUWISE" target="_blank" class="text-black dark:text-white hover:text-blue-500 transition">
             <i class="fab fa-telegram fa-lg"></i><span class="sr-only">Telegram</span>
           </a>
-          <a href="https://instagram.com/vtuengineering.notes" target="_blank" class="text-black dark:text-white hover:text-pink-500 transition">
+          <a href="https://instagram.com/vtuwise.in" target="_blank" class="text-black dark:text-white hover:text-pink-500 transition">
             <i class="fab fa-instagram fa-lg"></i><span class="sr-only">Instagram</span>
           </a>
         </div>
